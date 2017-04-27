@@ -1,0 +1,11 @@
+{
+  "name": "puissance4",
+  "version": "0.1.0",
+  "description": "puissance4 application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "said mezhoud",
+  "license": "ISC"
+}
