@@ -12,14 +12,20 @@ var express       = require('express');
 var app           = express();
 var http          = require('http').Server(app);
 var path          = require('path');
-var config        = require('./config');
 var routes        = require('./routes/routes');
 var User          = require('./models/user');
-// app include
 var mongoose      = require('mongoose');
 var passport      = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
+let port = process.env.PORT || 3000;
+// =======================
+// === Express Config ====
+// =======================
+app.set('view engine', 'html');
+app.set('views', __dirname + '/app/views');
+app.use('/controllers', express.static(__dirname + '/app/controllers'));
+app.use('/public', express.static(__dirname + '/app/public'));
+app.use('/node_modules', express.static(__dirname + '/node_modules'));
 passport.use(new LocalStrategy(
   function(username, password, done) {
     User.findOne({ username: username }, function(err, user) {
@@ -34,12 +40,14 @@ passport.use(new LocalStrategy(
     });
   }
 ));
-
 // =======================
 // ======= Routes ========
 // =======================
-app.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/login',
-                                   failureFlash: true })
-);
+app.get('/login', routes.login);
+app.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login',
+  failureFlash: true
+}));
+
+http.listen(port, () => {console.log('\nPort:', port);});

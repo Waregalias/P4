@@ -5,7 +5,6 @@
 var express = require('express');
 var path    = require('path');
 var app     = express();
-var config  = require('../config');
 
 function login(req, res) {
     res.sendFile(path.join(__dirname, '../app/views', 'login.html'));
