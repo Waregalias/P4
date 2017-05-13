@@ -1,0 +1,21 @@
+<div class="main" ng-app="SignupModule">
+  <div class="container" ng-controller="SignupController">
+    <form class="form-signup" ng-submit="signup()">
+      <h2 class="form-signup-heading">S'inscrire</h2>
+      <label for="inputUsername" class="sr-only">Nom de compte</label>
+      <input type="username" id="inputUsername" class="form-control" ng-model="username" placeholder="Nom de compte" required autofocus>
+      <label for="inputPassword" class="sr-only">Mot de passe</label>
+      <input type="password" id="inputPassword" class="form-control" ng-model="password" placeholder="Mot de passe" required>
+      <label for="inputPassword" class="sr-only">Mot de passe</label>
+      <input type="password" id="inputPassword" class="form-control" ng-model="password2" placeholder="Confirmation" required>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="remember-me"> Se souvenir de moi
+        </label>
+      </div>
+      <input class="btn btn-lg btn-primary btn-block" type="submit"></input>
+    </form>
+  </div>
+</div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script type="text/javascript" src="/public/javascripts/SignupController.js"></script>
