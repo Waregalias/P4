@@ -37,13 +37,15 @@ app.engine('handlebars', exphbs({defaultLayout:'layout'}));
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
 
+mongoose.Promise = global.Promise;
 mongoose.connect(config.database);
-app.use(passport.initialize());
-app.use(passport.session());
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({secret: 'secret',saveUninitialized: true,resave: true}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(expressValidator({
   errorFormatter: function(param, msg, value) {
     var namespace = param.split('.');

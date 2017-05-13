@@ -3,9 +3,9 @@
     <form class="form-login" ng-submit="login()">
       <h2 class="form-login-heading">Se connecter</h2>
       <label for="inputUsername" class="sr-only">Nom de compte</label>
-      <input type="username" id="inputUsername" class="form-control" ng-model="username" placeholder="Nom de compte" required autofocus>
+      <input type="username" id="inputUsername" class="form-control" ng-model="username"  name="username" placeholder="Nom de compte" required autofocus>
       <label for="inputPassword" class="sr-only">Mot de passe</label>
-      <input type="password" id="inputPassword" class="form-control" ng-model="password" placeholder="Mot de passe" required>
+      <input type="password" id="inputPassword" class="form-control" ng-model="password"  name="password" placeholder="Mot de passe" required>
       <div class="checkbox">
         <label>
           <input type="checkbox" value="remember-me"> Se souvenir de moi
