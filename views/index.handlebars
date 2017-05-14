@@ -1,2 +1,28 @@
-<h2 class="page-header">Dashboard</h2>
-<p>Welcome to your dashboard</p>  
+<h2 class="page-header">Tableau de bord</h2>
+<div class="row" ng-app="DashboardModule" ng-controller="DashboardController">
+  <div class="col-sm-6">
+    <h4>Nouvelle partie</h4>
+    <a href="/game/start"><button type="button" class="btn btn-lg btn-success">Lancer la partie</button></a>
+  </div>
+  <div class="col-sm-6 party-on">
+    <h4>Liste des parties en cours</h4>
+    <div class="list-group">
+      <a href="#" class="list-group-item">
+        <h4 class="list-group-item-heading">Lancée par :</h4>
+        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+      </a>
+      <a href="#" class="list-group-item">
+        <h4 class="list-group-item-heading">List group item heading</h4>
+        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+      </a>
+      <a href="#" class="list-group-item">
+        <h4 class="list-group-item-heading">List group item heading</h4>
+        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+      </a>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+<script type="text/javascript" src="/public/javascripts/dashboard.js"></script>

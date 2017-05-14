@@ -1,56 +1,48 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>LoginApp</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<link rel="stylesheet" href="/public/stylesheets/style.css">
-</head>
-<body>
-	<div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            {{#if user}}
-              <li role="presentation"><a href="/">Dashboard</a></li>
-              <li role="presentation"><a href="/users/logout">Logout</a></li>
-            {{else}}
-              <li role="presentation"><a href="/users/login">Login</a></li>
-              <li role="presentation"><a href="/users/register">Register</a></li>
-            {{/if}}
-          </ul>
-        </nav>
-        <h3 class="text-muted">LoginApp</h3>
-      </div>
-
-
-      <div class="row">
-        <div class="col-lg-12">
-          {{#if success_msg}}
-            <div class="alert alert-success">{{success_msg}}</div>
-          {{/if}}
-
-          {{#if error_msg}}
-            <div class="alert alert-danger">{{error_msg}}</div>
-          {{/if}}
-
-          {{#if error}}
-            <div class="alert alert-danger">{{error}}</div>
-          {{/if}}
-
-          {{{body}}}
-        </div>
-
-
-      </div>
-
-      <footer class="footer">
-        <p>&copy; 2015 LoginApp, Inc.</p>
-      </footer>
-
-    </div> <!-- /container -->
-</body>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Puissance 4</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="/public/stylesheets/style.css">
+	</head>
+	<body>
+		<div class="container">
+	      <div class="header clearfix">
+	        <nav>
+	          <ul class="nav nav-pills pull-right">
+	            {{#if user}}
+	              <li role="presentation"><a href="/">Tableau de bord</a></li>
+	              <li role="presentation"><a href="/users/logout">Déconnexion</a></li>
+	            {{else}}
+	              <li role="presentation"><a href="/users/login">Connexion</a></li>
+	              <li role="presentation"><a href="/users/register">Inscription</a></li>
+	            {{/if}}
+	          </ul>
+	        </nav>
+	        <h3 class="text-muted"><a href="/">Puissance 4</a></h3>
+	      </div>
+	      <div class="row">
+	        <div class="col-lg-12">
+	          {{#if success_msg}}
+	            <div class="alert alert-success">{{success_msg}}</div>
+	          {{/if}}
+	          {{#if error_msg}}
+	            <div class="alert alert-danger">{{error_msg}}</div>
+	          {{/if}}
+	          {{#if error}}
+	            <div class="alert alert-danger">{{error}}</div>
+	          {{/if}}
+	          {{{body}}}
+	        </div>
+	      </div>
+				<!-- fork de bradtraversy@Github -->
+	      <footer class="footer">
+	        <p>&copy; 2046 | Puissance 4</p>
+	      </footer>
+	    </div>
+	</body>
 </html>

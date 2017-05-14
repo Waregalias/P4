@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 /* jshint node: true */
 /* jshint esversion:6*/
 //*********************************************************//
@@ -10,7 +10,9 @@
 //*********************************************************//
 var express           = require('express');
 var app               = express();
+var http              = require('http').Server(app);
 var path              = require('path');
+var bodyParser        = require('body-parser');
 var cookieParser      = require('cookie-parser');
 var bodyParser        = require('body-parser');
 var exphbs            = require('express-handlebars');
@@ -24,9 +26,12 @@ var mongoose          = require('mongoose');
 var config            = require('./config');
 var routes            = require('./routes/index');
 var users             = require('./routes/users');
+var game              = require('./routes/game');
+var io                = require('socket.io')(http);
 // =======================
 // ===== App Config ======
 // =======================
+var rooms = [];
 app.set('port', (process.env.PORT || 3000));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
@@ -36,9 +41,9 @@ app.use('/public', express.static(__dirname + '/public'));
 mongoose.Promise = global.Promise;
 mongoose.connect(config.database);
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(session({secret: 'secret',saveUninitialized: true,resave: true}));
+app.use(session({secret: 'secret', saveUninitialized: true, resave: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(expressValidator({
@@ -60,11 +65,34 @@ app.use(function (req, res, next) {
   next();
 });
 // =======================
+// ======= Socket ========
+// =======================
+io.on('connection', function(socket){
+  console.log('Socket: online');
+  socket.on('create', function(room) {
+    console.log(room + ' a lancé une partie');
+    rooms.push(room);
+    socket.join(room);
+  });
+  socket.on('action', function(action){
+    console.log('action: ' + action);
+    socket.broadcast.emit(action);
+  });
+  socket.on('disconnect', function(){
+    console.log(':: a quitté la partie');
+  });
+});
+// =======================
 // ======= Routes ========
 // =======================
 app.use('/', routes);
 app.use('/users', users);
+app.use('/game', game);
+app.get('/list', function (req, res) {
+  //res.end(JSON.stringify(rooms));
+  res.end(JSON.stringify(io.sockets.adapter.rooms));
+});
 
-app.listen(app.get('port'), function(){
-	console.log('Server started on port '+app.get('port'));
+http.listen(app.get('port'), function(){
+	console.log('Server started on port '+ app.get('port'));
 });
