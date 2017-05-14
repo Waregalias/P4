@@ -1,15 +1,16 @@
 "use strict";
 /* jshint node: true */
-/* Index Routes Page. */
-var express       = require('express');
-var router        = express.Router();
-var passport      = require('passport');
+/* Users Routes Page. */
+var express = require('express');
+var router = express.Router();
+var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var User          = require('../models/user');
+
+var User = require('../models/user');
 
 // Register
-router.get('/signup', function(req, res){
-	res.render('signup');
+router.get('/register', function(req, res){
+	res.render('register');
 });
 
 // Login
@@ -18,7 +19,7 @@ router.get('/login', function(req, res){
 });
 
 // Register User
-router.post('/signup', function(req, res){
+router.post('/register', function(req, res){
 	var name = req.body.name;
 	var email = req.body.email;
 	var username = req.body.username;
@@ -36,7 +37,7 @@ router.post('/signup', function(req, res){
 	var errors = req.validationErrors();
 
 	if(errors){
-		res.render('signup',{
+		res.render('register',{
 			errors:errors
 		});
 	} else {
@@ -54,7 +55,7 @@ router.post('/signup', function(req, res){
 
 		req.flash('success_msg', 'You are registered and can now login');
 
-		res.redirect('/auth/login');
+		res.redirect('/users/login');
 	}
 });
 
@@ -88,7 +89,7 @@ passport.deserializeUser(function(id, done) {
 });
 
 router.post('/login',
-  passport.authenticate('local', {successRedirect:'/', failureRedirect:'/auth/login',failureFlash: true}),
+  passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login',failureFlash: true}),
   function(req, res) {
     res.redirect('/');
   });
@@ -98,7 +99,7 @@ router.get('/logout', function(req, res){
 
 	req.flash('success_msg', 'You are logged out');
 
-	res.redirect('/auth/login');
+	res.redirect('/users/login');
 });
 
 module.exports = router;
