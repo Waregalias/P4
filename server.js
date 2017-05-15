@@ -79,7 +79,7 @@ io.on('connection', function(socket){
   });
   socket.on('action', function(action){
     console.log('action: ' + action);
-    socket.broadcast.emit(action);
+    io.emit('action', action);
   });
   socket.on('disconnect', function(room){
     console.log("disconnect");
