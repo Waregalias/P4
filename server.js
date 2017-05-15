@@ -31,7 +31,6 @@ var io                = require('socket.io')(http);
 // =======================
 // ===== App Config ======
 // =======================
-var rooms = [];
 app.set('port', (process.env.PORT || 3000));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
@@ -68,18 +67,22 @@ app.use(function (req, res, next) {
 // ======= Socket ========
 // =======================
 io.on('connection', function(socket){
-  console.log('Socket: online');
+  console.log("new connection");
+
   socket.on('create', function(room) {
     console.log(room + ' a lancé une partie');
-    rooms.push(room);
+    socket.join(room);
+  });
+  socket.on('join', function(room) {
+    console.log('un joueur a rejoint la partie de ' + room);
     socket.join(room);
   });
   socket.on('action', function(action){
     console.log('action: ' + action);
     socket.broadcast.emit(action);
   });
-  socket.on('disconnect', function(){
-    console.log(':: a quitté la partie');
+  socket.on('disconnect', function(room){
+    console.log("disconnect");
   });
 });
 // =======================
@@ -89,7 +92,6 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/game', game);
 app.get('/list', function (req, res) {
-  //res.end(JSON.stringify(rooms));
   res.end(JSON.stringify(io.sockets.adapter.rooms));
 });
 
