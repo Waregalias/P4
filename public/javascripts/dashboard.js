@@ -1,3 +1,4 @@
+/* jshint esversion:6*/
 var socket = io.connect("http://localhost:3000/");
 var app = angular.module('DashboardModule', ['ngCookies']);
 app.config(function($interpolateProvider) {

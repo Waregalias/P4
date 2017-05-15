@@ -1,5 +1,6 @@
 "use strict";
 /* jshint node: true */
+/* jshint sub: true*/
 /* jshint esversion:6*/
 //*********************************************************//
 //    Name: P4
@@ -67,22 +68,23 @@ app.use(function (req, res, next) {
 // ======= Socket ========
 // =======================
 io.on('connection', function(socket){
-  console.log("new connection");
+  //console.log("new connection");
 
   socket.on('create', function(room) {
-    console.log(room + ' a lancé une partie');
+    //console.log(room + ' a lancé une partie');
+    io.emit('create', { first: Math.random() >= 0.5 });
     socket.join(room);
   });
   socket.on('join', function(room) {
-    console.log('un joueur a rejoint la partie de ' + room);
+    //console.log('un joueur a rejoint la partie de ' + room);
     socket.join(room);
   });
   socket.on('action', function(action){
-    console.log('action: ' + action);
-    io.emit('action', action);
+    //console.log('action: ' + action);
+    socket.broadcast.emit('action', action);
   });
   socket.on('disconnect', function(room){
-    console.log("disconnect");
+    //console.log("disconnect");
   });
 });
 // =======================

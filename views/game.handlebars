@@ -14,8 +14,9 @@
         <tbody>
           <tr ng-repeat="row in grid track by $index">
             <td ng-repeat="column in row track by $index" width="60" height="60" id="{$parent.$index}:{$index}" ng-click="action($index)">
-              <!-- <img src="/public/pictures/slot.jpg" width="60" height="60"> -->
+              <img src="/public/pictures/slot.jpg" width="60" height="60">
               <span>{row[$index]}</span>
+              <!-- <span ng-bind-html="row[$index]">{row[$index]}</span> -->
               <!-- <span>{$parent.$index}</span> -->
             </td>
           </tr>
@@ -26,5 +27,6 @@
 </div>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
 <script type="text/javascript" src="/public/javascripts/puissance4.js"></script>
