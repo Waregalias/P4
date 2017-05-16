@@ -16,9 +16,10 @@ router.get('/join', function(req, res){
 // =======================
 // ======= Control =======
 // =======================
-router.prototype.control = function() {
+router.prototype.control = function(action) {
 	//console.log(action);
-	console.log("test");
+
+
 };
 
 module.exports = router;

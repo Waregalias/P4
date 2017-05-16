@@ -77,7 +77,10 @@ io.on('connection', function(socket){
         socket.join(room);
     }
   });
-  socket.on('action', function(room, action){
+  socket.on('action', function(room, action, coord){
+    ligne(action);
+    colonne(action);
+    diagonale(action, coord);
     socket.to(room).emit('action', action);
   });
   socket.on('leave', function(room) {
@@ -86,6 +89,76 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(room){
   });
 });
+
+var ligne = function(action) {
+  var yellow = 0;
+  var red = 0;
+  var grille = JSON.parse(action);
+
+  for(var x=0; x < grille.length; x++) {
+    for(var y=0; y < grille[x].length; y++) {
+      if(grille[x][y] !== '') {
+        switch(grille[x][y]) {
+          case 'yellow':
+            yellow++;
+            red = 0;
+            break;
+          case 'red':
+            red++;
+            yellow = 0;
+            break;
+        }
+        if(yellow === 4) {
+          console.log('yellow win');
+        } else if(red === 4) {
+          console.log('red win');
+        }
+      } else {
+        yellow = 0;
+        red = 0;
+      }
+    }
+  }
+};
+var colonne = function(action) {
+  var grille = JSON.parse(action);
+};
+var diagonale = function(action, coord) {
+  var yellow = 0;
+  var red = 0;
+  var grille = JSON.parse(action);
+
+  // HAUT DROITE
+  for(var i=0; i<4; i++) {
+    console.log(i, coord[0]-i, coord[1]+i);
+    if((grille[coord[0]-i]||[])[coord[1]+i] !== undefined) {
+      if(grille[coord[0]-i][coord[1]+i] !== '') {
+        switch(grille[coord[0]-i][coord[1]+i]) {
+          case 'yellow':
+            yellow++;
+            red = 0;
+            break;
+          case 'red':
+            red++;
+            yellow = 0;
+            break;
+        }
+        if(yellow === 4) {
+          console.log('yellow win');
+        } else if(red === 4) {
+          console.log('red win');
+        }
+      } else {
+        yellow = 0;
+        red = 0;
+      }
+    }
+    else {
+      break;
+    }
+  }
+};
+
 // =======================
 // ======= Routes ========
 // =======================

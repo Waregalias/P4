@@ -53,7 +53,8 @@ app.controller('P4Controller', ['$scope', '$http', '$window', '$location', '$coo
       }
       if(target >= 0) {
         $scope.grid[target][x] = $scope.pion;
-        socket.emit('action', $scope.room, JSON.stringify($scope.grid));
+        $scope.coord = [target, x];
+        socket.emit('action', $scope.room, JSON.stringify($scope.grid), $scope.coord);
         $scope.tour = 'C\'est au tour de votre adversaire';
         $scope.canplay = false;
       }
