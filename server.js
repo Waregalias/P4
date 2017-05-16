@@ -73,10 +73,11 @@ io.on('connection', function(socket){
     socket.join(room);
   });
   socket.on('join', function(room) {
-    if(room !== "undefined") {
-      if(io.sockets.adapter.rooms[room].length < 2)  {
+    if(room !== "undefined" && room !== "null") {
+      if(io.sockets.adapter.rooms[room].length === 1)  {
         socket.join(room);
       }
+      socket.broadcast.emit('refresh');
     }
   });
   socket.on('action', function(action){

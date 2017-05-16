@@ -80,6 +80,10 @@ footer{
   }
 }
 
+.disponible{
+  cursor: pointer;
+}
+
 .options {
   text-align: right;
   margin-bottom: 20px;

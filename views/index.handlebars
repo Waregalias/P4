@@ -7,10 +7,11 @@
   <div class="col-sm-6 party-on" data-ng-init="list()">
     <h4>Liste des parties disponibles</h4>
     <div class="list-group">
-      <div class="list-group-item" ng-repeat="rooms in master">
-        <h4 class="list-group-item-heading">Lancée par :</h4>
-        <a><p class="list-group-item-text" ng-click="join({rooms})">{rooms}</p></a>
-      </div>
+      <a class="list-group-item disponible" ng-repeat="rooms in master" ng-click="join({rooms})">
+        <h4 class="list-group-item-heading">Lancée par le joueur :</h4>
+        <p class="list-group-item-text">{rooms}</p>
+      </a>
+      <p ng-if="master == ''">Aucune partie disponible...</p>
     </div>
   </div>
 </div>

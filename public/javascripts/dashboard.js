@@ -19,8 +19,11 @@ app.controller('DashboardController', ['$scope', '$http', '$cookies', function($
         console.log(response.data);
         for(var key in response.data) {
           if((key) !== (Object.keys(response.data[key].sockets)[0])) {
-            if(response.data[key].length < 2)
+            if(response.data[key].length === 1) {
               $scope.master.push(key);
+            } else {
+              $scope.master.splice(key);
+            }
           }
         }
     });

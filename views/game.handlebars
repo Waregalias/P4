@@ -17,10 +17,7 @@
           <tr ng-repeat="row in grid track by $index">
             <td ng-repeat="column in row track by $index" width="60" height="60" id="{$parent.$index}:{$index}" ng-click="action($index)">
               <img src="/public/pictures/slot.jpg" width="60" height="60">
-                <!-- <span>{row[$index]}</span> -->
                 <span class="pion"><img ng-if="row[$index]" data-ng-src="/public/pictures/{row[$index]}.png" width="51" height="51"/></span>
-                <!-- <span ng-bind-html="row[$index]">{row[$index]}</span> -->
-                <!-- <span>{$parent.$index}</span> -->
               </img>
             </td>
           </tr>
