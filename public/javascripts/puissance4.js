@@ -11,7 +11,6 @@ app.controller('P4Controller', ['$scope', '$http', '$window', '$location', '$coo
   $scope.grid = [];
   $scope.currentusr = $cookies.get('connect.usr');
   $scope.pId = $location.absUrl().split('/')[4];
-  $scope.canplay = true;
 
   socket.on('action', function(msg){
     $scope.canplay = true;
@@ -19,13 +18,15 @@ app.controller('P4Controller', ['$scope', '$http', '$window', '$location', '$coo
     $scope.$apply( function(){ $scope.grid = JSON.parse(msg); });
   });
   socket.on('leave', function(msg){
+    alert(msg);
     $window.location.href = '/';
   });
   $scope.init = function() {
     if ($scope.pId === 'new') {
       socket.emit('create', $scope.currentusr);
       $scope.room = $scope.currentusr;
-      $scope.pion = 'blue';
+      $scope.pion = 'yellow';
+      $scope.canplay = true;
     } else if ($scope.pId === 'join') {
       $scope.room = $cookies.get('connect.join');
       socket.emit('join', $scope.room);
@@ -51,18 +52,15 @@ app.controller('P4Controller', ['$scope', '$http', '$window', '$location', '$coo
         }
       }
       if(target >= 0) {
-        //$scope.grid[target][x] = $scope.currentusr;
         $scope.grid[target][x] = $scope.pion;
-        // $scope.grid[target][x] = $sce.trustAsHtml('<img src=\"/public/pictures/blue.png\" width=\"50\" height=\"50\">');
-        socket.emit('action', JSON.stringify($scope.grid));
+        socket.emit('action', $scope.room, JSON.stringify($scope.grid));
         $scope.tour = 'C\'est au tour de votre adversaire';
         $scope.canplay = false;
       }
     }
   };
   $scope.leave = function() {
-    socket.emit('leave');
-    socket.disconnect();
+    socket.emit('leave', $scope.room);
     $window.location.href = '/';
   };
 }]);

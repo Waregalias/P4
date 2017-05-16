@@ -10,10 +10,10 @@ app.controller('DashboardController', ['$scope', '$http', '$cookies', function($
   $scope.master = [];
   $cookies.remove('connect.join');
 
-  socket.on('refresh', function() {
-    $scope.list();
+  socket.on('refresh', function(room) {
+    $scope.list(room);
   });
-  $scope.list = function() {
+  $scope.list = function(room) {
     $http({method: 'GET', url: '/list'}).then(
       function successCallback(response) {
         console.log(response.data);
@@ -22,6 +22,9 @@ app.controller('DashboardController', ['$scope', '$http', '$cookies', function($
             if(response.data[key].length === 1) {
               $scope.master.push(key);
             } else {
+              $scope.master.splice(key);
+            }
+            if(room === key) {
               $scope.master.splice(key);
             }
           }

@@ -68,23 +68,20 @@ app.use(function (req, res, next) {
 // ======= Socket ========
 // =======================
 io.on('connection', function(socket){
-  socket.on('create', function(room) { //Math.random() >= 0.5;
-    socket.broadcast.emit('refresh');
+  socket.on('create', function(room) {
     socket.join(room);
   });
   socket.on('join', function(room) {
     if(room !== "undefined" && room !== "null") {
-      if(io.sockets.adapter.rooms[room].length === 1)  {
+      if(io.sockets.adapter.rooms[room].length === 1)
         socket.join(room);
-      }
-      socket.broadcast.emit('refresh');
     }
   });
-  socket.on('action', function(action){
-    socket.broadcast.emit('action', action);
+  socket.on('action', function(room, action){
+    socket.to(room).emit('action', action);
   });
-  socket.on('leave', function() {
-    socket.broadcast.emit('leave', 'Votre adversaire a quitté la partie.');
+  socket.on('leave', function(room) {
+    socket.to(room).emit('leave', 'Votre adversaire a quitté la partie.');
   });
   socket.on('disconnect', function(room){
   });
