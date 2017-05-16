@@ -3,21 +3,25 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="options">
-        <button type="button" class="btn btn-danger" ng-click="action()">action</button>
-        <a href="/"><button type="button" class="btn btn-danger">Abandonner</button></a>
+        <div class="row">
+          <div class=col-sm-6><h4>{tour}</h4></div>
+          <div class=col-sm-6><button type="button" class="btn btn-danger" ng-click="leave()">Abandonner</button></div>
+        </div>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <table border="3" cellpadding="0" cellspacing="0" bordercolor="#003300">
+      <table id="grille" border="3" cellpadding="0" cellspacing="0" bordercolor="#003300">
         <tbody>
           <tr ng-repeat="row in grid track by $index">
             <td ng-repeat="column in row track by $index" width="60" height="60" id="{$parent.$index}:{$index}" ng-click="action($index)">
               <img src="/public/pictures/slot.jpg" width="60" height="60">
-              <span>{row[$index]}</span>
-              <!-- <span ng-bind-html="row[$index]">{row[$index]}</span> -->
-              <!-- <span>{$parent.$index}</span> -->
+                <!-- <span>{row[$index]}</span> -->
+                <span class="pion"><img ng-if="row[$index]" data-ng-src="/public/pictures/{row[$index]}.png" width="51" height="51"/></span>
+                <!-- <span ng-bind-html="row[$index]">{row[$index]}</span> -->
+                <!-- <span>{$parent.$index}</span> -->
+              </img>
             </td>
           </tr>
         </tbody>

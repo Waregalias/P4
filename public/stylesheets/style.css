@@ -82,9 +82,15 @@ footer{
 
 .options {
   text-align: right;
+  margin-bottom: 20px;
 }
 
 #grid {
   margin: 0 auto;
   margin-top: 50px;
+}
+
+.pion {
+  position: absolute;
+  margin: -55px 0 0 5px;
 }

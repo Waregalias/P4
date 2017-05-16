@@ -10,14 +10,21 @@ app.controller('DashboardController', ['$scope', '$http', '$cookies', function($
   $scope.master = [];
   $cookies.remove('connect.join');
 
-  $http({method: 'GET', url: '/list'}).then(
-    function successCallback(response) {
-      console.log(response.data);
-      for(var key in response.data) {
-        if((key) !== (Object.keys(response.data[key].sockets)[0]))
-          $scope.master.push(key);
-      }
+  socket.on('refresh', function() {
+    $scope.list();
   });
+  $scope.list = function() {
+    $http({method: 'GET', url: '/list'}).then(
+      function successCallback(response) {
+        console.log(response.data);
+        for(var key in response.data) {
+          if((key) !== (Object.keys(response.data[key].sockets)[0])) {
+            if(response.data[key].length < 2)
+              $scope.master.push(key);
+          }
+        }
+    });
+  };
   $scope.join = function(room) {
     $cookies.put('connect.join', room.rooms);
     window.location.href = '/game/join';

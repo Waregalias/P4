@@ -68,23 +68,24 @@ app.use(function (req, res, next) {
 // ======= Socket ========
 // =======================
 io.on('connection', function(socket){
-  //console.log("new connection");
-
-  socket.on('create', function(room) {
-    //console.log(room + ' a lancé une partie');
-    io.emit('create', { first: Math.random() >= 0.5 });
+  socket.on('create', function(room) { //Math.random() >= 0.5;
+    socket.broadcast.emit('refresh');
     socket.join(room);
   });
   socket.on('join', function(room) {
-    //console.log('un joueur a rejoint la partie de ' + room);
-    socket.join(room);
+    if(room !== "undefined") {
+      if(io.sockets.adapter.rooms[room].length < 2)  {
+        socket.join(room);
+      }
+    }
   });
   socket.on('action', function(action){
-    //console.log('action: ' + action);
     socket.broadcast.emit('action', action);
   });
+  socket.on('leave', function() {
+    socket.broadcast.emit('leave', 'Votre adversaire a quitté la partie.');
+  });
   socket.on('disconnect', function(room){
-    //console.log("disconnect");
   });
 });
 // =======================

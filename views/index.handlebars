@@ -4,8 +4,8 @@
     <h4>Nouvelle partie</h4>
     <a href="/game/new"><button type="button" class="btn btn-lg btn-success">Lancer la partie</button></a>
   </div>
-  <div class="col-sm-6 party-on">
-    <h4>Liste des parties en cours</h4>
+  <div class="col-sm-6 party-on" data-ng-init="list()">
+    <h4>Liste des parties disponibles</h4>
     <div class="list-group">
       <div class="list-group-item" ng-repeat="rooms in master">
         <h4 class="list-group-item-heading">Lancée par :</h4>
