@@ -12,6 +12,16 @@ app.controller('P4Controller', ['$scope', '$http', '$window', '$location', '$coo
   $scope.currentusr = $cookies.get('connect.usr');
   $scope.pId = $location.absUrl().split('/')[4];
 
+  socket.on('winner', function(msg){
+    console.log(msg);
+    if(msg === $scope.pion) {
+      alert('Bravo! Vous avez gagné!');
+    } else {
+      alert('Vous avez perdu...');
+    }
+      socket.emit('leave', $scope.room);
+      $window.location.href = '/';
+  });
   socket.on('action', function(msg){
     $scope.canplay = true;
     $scope.tour = 'C\'est à votre tour';
