@@ -79,15 +79,14 @@ io.on('connection', function(socket){
   });
   socket.on('action', function(room, action, coord){
     let winner = '';
-    // if(game.ligne(action) !== '')
-    //   winner = game.ligne(action);
+    if(game.ligne(action) !== '')
+      winner = game.ligne(action);
     if(game.colonne(action) !== '')
       winner = game.colonne(action);
     // if(game.diagonale(action, coord) !== '')
     //   winner = game.diagonale(action, coord);
 
     socket.to(room).emit('action', action);
-    console.log(winner);
     if(winner !== '')
       io.in(room).emit('winner', winner);
   });

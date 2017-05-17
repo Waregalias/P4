@@ -59,11 +59,9 @@ function colonne(action) {
   let red = 0;
   let grille = JSON.parse(action);
 
-	console.log(grille[0].length);
-  for(let x=grille.length-1; x >= 0; x--) { // 6
-    for(let y=0; y < grille[x].length-1; y++) { // 7
-			console.log(x,y);
-      //console.log(grille[x][y]);
+  for(let y=0; y <= 6; y++) {
+    for(let x=0; x <= 5; x++) {
+			// console.log(y,x);
       if(grille[x][y] !== '') {
         switch(grille[x][y]) {
           case 'yellow':
@@ -75,18 +73,18 @@ function colonne(action) {
             yellow = 0;
             break;
         }
-        console.log('y&r', yellow, red);
+        //console.log('y&r', yellow, red);
         if(yellow === 4) {
-          console.log('yellow win');
+          winner = 'yellow';
         } else if(red === 4) {
-          console.log('red win');
+          winner = 'red';
         }
       } else {
         yellow = 0;
         red = 0;
       }
     }
-		console.log("--");
+		// console.log("--");
   }
 	return winner;
 } module.exports.colonne = colonne;
