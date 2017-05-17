@@ -89,6 +89,15 @@ footer{
   margin-bottom: 20px;
 }
 
+.jumbotron.custom {
+  background-color: #002BE0;
+  padding: 20px;
+}
+
+.jumbotron table {
+  margin: 0 auto;
+}
+
 #grid {
   margin: 0 auto;
   margin-top: 50px;
